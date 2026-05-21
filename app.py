@@ -5,6 +5,7 @@ import joblib
 import pandas as pd
 from pydantic import BaseModel
 import logging
+from fastapi import HTTPException
 
 logging.basicConfig(
     filename = 'predictions_log.log',
@@ -35,29 +36,42 @@ def home():
     }
 
 @app.post('/predict')
+
+    
 def predict(data: DiabetesInput):
-
-    # Convert incoming request into dictionary
-    input_data = data.model_dump()
-
-    # Create dataframe
-    input_df = pd.DataFrame([input_data])
-
-    # Keep only training features in correct order
-    input_df = input_df.reindex(columns=feature_cols)
-
-    # Prediction
-    probability = model.predict_proba(input_df)[0][1]
-
-    prediction = int(probability >= 0.5)
-
-    logging.info(
-        f"Input : {input_data} |"
-        f"Prediction : {prediction} |"
-        f"Probability :{probability :0.4f}"
-    )
-
-    return {
-        'prediction': prediction,
-        'diabetes_probability': float(probability)
-    }
+    try:
+        # Convert incoming request into dictionary
+        input_data = data.model_dump()
+    
+        # Create dataframe
+        input_df = pd.DataFrame([input_data])
+    
+        # Keep only training features in correct order
+        input_df = input_df.reindex(columns=feature_cols)
+    
+        # Prediction
+        probability = model.predict_proba(input_df)[0][1]
+    
+        prediction = int(probability >= 0.5)
+    
+        logging.info(
+            f"Input : {input_data} |"
+            f"Prediction : {prediction} |"
+            f"Probability :{probability :0.4f}"
+        )
+    
+        return {
+            'prediction': prediction,
+            'diabetes_probability': float(probability)
+        }
+    except Exception as e:
+        logging.error(
+            f"Prediction failed |"
+            f"Input :{data.model_dump()} |"
+            f"Error :{str(e)}"
+        )
+        raise HTTPException(
+            status_code = 500,
+            detail = 'Prediction Failed'
+        )
+        
