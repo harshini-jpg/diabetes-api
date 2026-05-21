@@ -18,15 +18,48 @@ feature_cols = joblib.load('feature_cols.pkl')
 model = joblib.load('catboost_diabetes.pkl')
 app = FastAPI()
 
+from pydantic import BaseModel, Field
+
+
 class DiabetesInput(BaseModel):
-    Pregnancies: int
-    Glucose: float
-    BloodPressure: float
-    SkinThickness: float
-    Insulin: float
-    BMI: float
-    DiabetesPedigreeFunction: float
-    Age: float
+
+    Pregnancies: int = Field(ge=0, le=20)
+
+    Glucose: float = Field(
+        gt=0,
+        le=500,
+        description="Blood glucose level"
+    )
+
+    BloodPressure: float = Field(
+        gt=0,
+        le=300
+    )
+
+    SkinThickness: float = Field(
+        ge=0,
+        le=100
+    )
+
+    Insulin: float = Field(
+        ge=0,
+        le=1000
+    )
+
+    BMI: float = Field(
+        gt=0,
+        le=100
+    )
+
+    DiabetesPedigreeFunction: float = Field(
+        ge=0,
+        le=5
+    )
+
+    Age: int = Field(
+        ge=1,
+        le=120
+    )
 
 @app.get('/')
 
