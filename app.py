@@ -4,6 +4,13 @@ from fastapi import FastAPI
 import joblib
 import pandas as pd
 from pydantic import BaseModel
+import logging
+
+logging.basicConfig(
+    filename = 'predictions_log.log',
+    level = logging.INFO,
+    format = '%(asctime)s - %(levelname)s - %(message)s'
+)
 
 feature_cols = joblib.load('feature_cols.pkl')
 
@@ -43,6 +50,12 @@ def predict(data: DiabetesInput):
     probability = model.predict_proba(input_df)[0][1]
 
     prediction = int(probability >= 0.5)
+
+    logging.info(
+        f"Input : {input_data} |"
+        f"Prediction : {prediction} |"
+        f"Probability :{probability :0.4f}"}
+    )
 
     return {
         'prediction': prediction,
