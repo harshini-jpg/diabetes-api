@@ -6,6 +6,7 @@ import pandas as pd
 from pydantic import BaseModel
 import logging
 from fastapi import HTTPException
+import json
 
 logging.basicConfig(
     filename = 'predictions_log.log',
