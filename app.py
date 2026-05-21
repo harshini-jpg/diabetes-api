@@ -48,7 +48,7 @@ def predict(data: DiabetesInput):
     
         prediction = int(probability >= 0.5)
     
-        logging.info(
+        logger.info(
             f"Input : {input_data} |"
             f"Prediction : {prediction} |"
             f"Probability :{probability :0.4f}"
@@ -59,7 +59,7 @@ def predict(data: DiabetesInput):
             'diabetes_probability': float(probability)
         }
     except Exception as e:
-        logging.error(
+        logger.error(
             f"Prediction failed |"
             f"Input :{data.model_dump()} |"
             f"Error :{str(e)}"
