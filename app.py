@@ -31,6 +31,7 @@ def home():
 
 def predict(data : DiabetesInput):
     input_df = pd.DataFrame([data])
+    input_df = input_df[feature_cols]
     probability = model.predict_proba(input_df)[0][1]
     prediction = int(probability >= 0.5)
     return {
