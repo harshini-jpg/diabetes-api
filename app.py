@@ -54,7 +54,7 @@ def predict(data: DiabetesInput):
     logging.info(
         f"Input : {input_data} |"
         f"Prediction : {prediction} |"
-        f"Probability :{probability :0.4f}"}
+        f"Probability :{probability :0.4f}"
     )
 
     return {
