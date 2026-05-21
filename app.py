@@ -28,13 +28,23 @@ def home():
     }
 
 @app.post('/predict')
+def predict(data: DiabetesInput):
 
-def predict(data : DiabetesInput):
-    input_df = pd.DataFrame([data])
-    input_df = input_df[feature_cols]
+    # Convert incoming request into dictionary
+    input_data = data.model_dump()
+
+    # Create dataframe
+    input_df = pd.DataFrame([input_data])
+
+    # Keep only training features in correct order
+    input_df = input_df.reindex(columns=feature_cols)
+
+    # Prediction
     probability = model.predict_proba(input_df)[0][1]
+
     prediction = int(probability >= 0.5)
+
     return {
-        'prediction':prediction,
-        'diabetes_probability':probability
+        'prediction': prediction,
+        'diabetes_probability': float(probability)
     }
