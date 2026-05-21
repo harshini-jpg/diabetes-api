@@ -1,0 +1,1 @@
+{"model_name": "CatBoostClassifier", "model_version": "v1.0", "roc_auc_score": 0.82, "training_date": "2026-05-21", "num_features": 8, "features": ["Pregnancies", "Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"], "prediction_threshold": 0.5}

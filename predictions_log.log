@@ -1,0 +1,4 @@
+2026-05-21 15:17:12,580 - INFO - Model metadata requested
+2026-05-21 15:17:33,998 - INFO - Input : {'Pregnancies': 20, 'Glucose': 1.0, 'BloodPressure': 1.0, 'SkinThickness': 100.0, 'Insulin': 1000.0, 'BMI': 1.0, 'DiabetesPedigreeFunction': 5.0, 'Age': 1} |Prediction : 0 |Probability :0.3514
+2026-05-21 15:32:39,408 - INFO - Input : {'Pregnancies': 20, 'Glucose': 1.0, 'BloodPressure': 1.0, 'SkinThickness': 100.0, 'Insulin': 1000.0, 'BMI': 1.0, 'DiabetesPedigreeFunction': 5.0, 'Age': 1} |Prediction : 0 |Probability :0.3514
+2026-05-21 15:33:52,188 - INFO - Model metadata requested
