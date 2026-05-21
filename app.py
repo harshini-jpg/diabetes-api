@@ -16,6 +16,10 @@ logging.basicConfig(
 feature_cols = joblib.load('feature_cols.pkl')
 
 model = joblib.load('catboost_diabetes.pkl')
+
+with open('model_metadata.json','r') as f:
+    model_metadata = json.load(f)
+    
 app = FastAPI()
 
 from pydantic import BaseModel, Field
@@ -63,6 +67,10 @@ class DiabetesInput(BaseModel):
 
 @app.get('/')
 
+def model_info():
+    logging.info("Model metadata requested")
+    return model_metadata
+    
 def home():
     return {
         'message':'Diabetes Prediction Running'
