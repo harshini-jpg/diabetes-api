@@ -3,10 +3,11 @@
 from fastapi import FastAPI
 import joblib
 import pandas as pd
-from pydantic import BaseModel
 import logging
 from fastapi import HTTPException
 import json
+
+from schemas.input_schema import DiabetesInput
 
 logging.basicConfig(
     filename = 'predictions_log.log',
@@ -22,51 +23,6 @@ with open('models/model_metadata.json','r') as f:
     model_metadata = json.load(f)
     
 app = FastAPI()
-
-from pydantic import BaseModel, Field
-
-
-class DiabetesInput(BaseModel):
-
-    Pregnancies: int = Field(ge=0, le=20)
-
-    Glucose: float = Field(
-        gt=0,
-        le=500,
-        description="Blood glucose level"
-    )
-
-    BloodPressure: float = Field(
-        gt=0,
-        le=300
-    )
-
-    SkinThickness: float = Field(
-        ge=0,
-        le=100
-    )
-
-    Insulin: float = Field(
-        ge=0,
-        le=1000
-    )
-
-    BMI: float = Field(
-        gt=0,
-        le=100
-    )
-
-    DiabetesPedigreeFunction: float = Field(
-        ge=0,
-        le=5
-    )
-
-    Age: int = Field(
-        ge=1,
-        le=120
-    )
-
-@app.get('/')
 
 def model_info():
     logging.info("Model metadata requested")
