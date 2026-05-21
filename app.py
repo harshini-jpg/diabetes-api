@@ -14,11 +14,11 @@ logging.basicConfig(
     format = '%(asctime)s - %(levelname)s - %(message)s'
 )
 
-feature_cols = joblib.load('feature_cols.pkl')
+feature_cols = joblib.load('models/feature_cols.pkl')
 
-model = joblib.load('catboost_diabetes.pkl')
+model = joblib.load('models/catboost_diabetes.pkl')
 
-with open('model_metadata.json','r') as f:
+with open('models/model_metadata.json','r') as f:
     model_metadata = json.load(f)
     
 app = FastAPI()
