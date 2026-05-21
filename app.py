@@ -6,14 +6,10 @@ import pandas as pd
 import logging
 from fastapi import HTTPException
 import json
+from utils.logger import logger
 
 from schemas.input_schema import DiabetesInput
 
-logging.basicConfig(
-    filename = 'predictions_log.log',
-    level = logging.INFO,
-    format = '%(asctime)s - %(levelname)s - %(message)s'
-)
 
 feature_cols = joblib.load('models/feature_cols.pkl')
 
@@ -25,7 +21,7 @@ with open('models/model_metadata.json','r') as f:
 app = FastAPI()
 
 def model_info():
-    logging.info("Model metadata requested")
+    logger.info("Model metadata requested")
     return model_metadata
     
 def home():
